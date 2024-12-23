@@ -45,6 +45,7 @@ opencm3:
 # Rules for Target Compilation
 elf: $(TARGET).elf
 bin: $(TARGET).bin
+all: bin
 
 %.bin: %.elf
 	$(OBJCOPY) -O binary $< $@
