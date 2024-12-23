@@ -1,0 +1,8 @@
+#+TITLE: Renode Testing Notes
+#+AUTHOR: Ethan Smith
+
+* Introduction
+  I am testing emulation of an STMF401RE processor with renode.  I am writing a
+  simple test program that will write hello world over serial.  The serial
+  peripheral will be connected to the terminal output.
+
