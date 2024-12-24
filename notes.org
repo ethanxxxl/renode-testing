@@ -6,3 +6,44 @@
   simple test program that will write hello world over serial.  The serial
   peripheral will be connected to the terminal output.
 
+* Usage Notes
+  - You don't have to use the GUI monitor. The following command will listen for
+    a telnet connection on ~localhost:7777~
+    : renode -P 7777
+  - There doesn't seem to be a way to restart the sim.  I think that you would
+    have to quit renode and reload the entire thing to truly restart it.  This
+    should be easy, the program seems pretty extensible through scripting,
+    loading and saving state, etc.
+
+
+  
+** Host Serial Integration
+   This can be a little tricky depending on the path that you take.  This is
+   generic to any application where you want to view a serial device on a linux
+   system, however.  Renode simply creates a psuedo tty device in the device
+   folder on the system.
+
+   If you use Putty to view this terminal, then setup is pretty self
+   explanetory.  Ensure that the options you select in Putty match what the
+   emulated device is using, and it works pretty easily.
+
+   If you want to use GNU screen, then there are a couple of things to look out
+   for.
+   1. You need to make sure the tty is configured properly.  By default, the TTY
+      renode creates will have some default config, that probably isn't correct.
+      The configuration of a TTY can be viewed/changed with stty.  The -F flag
+      will view/modify the configuration of the specified TTY.  The following
+      configuration worked for this project:
+      : sudo stty -F /path/to/tty 115200 -raw
+   2. When you create a Host Serial connection in renode, it creates a file
+      system link (I believe it is a symbolic link) to psuedo-tty in the ~/dev~
+      directory.  *screen may not work with the link*.  I had to specify the
+      actual tty file in the device folder manually.
+   3. After you exit screen (~C-a \~ is the keybind) the tty is going to be
+      "reset" to something screen thinks is useful.  If you want to open screen
+      again, you have to reconfigure the tty using ~stty~.
+   4. I had issues getting ~screen~ to open the file without errors.  I had to
+      reboot after updating my system, and also added myself to the tty user
+      group (and logout/login).  These these steps may or may not be necessary
+      depending on which operating system you are using.  I think debian/ubuntu
+      may require you to be in the "dialout" group.
