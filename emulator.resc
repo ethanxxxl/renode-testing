@@ -1,0 +1,8 @@
+# start renode emulator
+
+mach create
+machine LoadPlatformDescription @platforms/boards/stm32f4_discovery.repl
+sysbus LoadELF @firmware.elf
+
+emulation CreateUartPtyTerminal "term" "/tmp/uart" true
+connector Connect sysbus.usart1 term

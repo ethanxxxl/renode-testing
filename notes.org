@@ -47,3 +47,22 @@
       group (and logout/login).  These these steps may or may not be necessary
       depending on which operating system you are using.  I think debian/ubuntu
       may require you to be in the "dialout" group.
+
+  
+* README
+  I made a renode script that sets up the emulation for this program.  ~make
+  emulate~ will start renode with this script.  After renode starts, you can run
+  the "open-serial.sh" bash script that will configure and open the TTY that the
+  program output will be shown on.  After you start the emulator, the output
+  will show up in the terminal.
+
+  TLDR: run these commands:
+  #+begin_src bash
+    make emulate
+    ./open-serial.sh
+
+    # in renode monitor window
+    start 
+  #+end_src
+
+

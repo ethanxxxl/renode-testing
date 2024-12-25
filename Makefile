@@ -67,5 +67,15 @@ clean:
 ################################################################################
 # Rules for Emulation
 RENODE = renode
+RENODE_SCRIPT = ./emulator.resc
 
-.PHONY: opencm3 clean elf bin asm %.asm
+# start emulator
+# start uart viewer
+emulate:
+	gnome-terminal -- renode --console $(RENODE_SCRIPT)
+
+view_serial:
+	stty -F /tmp/uart 115200 -raw
+	screen /dev/pts/5
+
+.PHONY: opencm3 clean elf bin asm %.asm emulate
